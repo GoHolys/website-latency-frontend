@@ -1,33 +1,41 @@
 import React, { useState } from "react";
 
-export default function FrequencyForm() {
-  const [formData, setFormData] = useState({
-    frequency: "",
-  });
+interface FrequencyFormProps {
+  frequency: string;
+  handleFrequency(newFrequency: string): void;
+}
+
+export default function FrequencyForm({
+  frequency,
+  handleFrequency,
+}: FrequencyFormProps) {
+  const [formData, setFormData] = useState(frequency);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
+    setFormData(event.target.value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
+    handleFrequency(formData);
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex-col">
-      <div className="grid gap-5 w-full ">
+      <div className="grid gap-5 w-full">
         <label className="grid gap-2">
           Frequency
-          <input
-            type="text"
-            name="frequency"
-            value={formData.frequency}
-            onChange={handleChange}
-            className="border border-gray-400 py-1 px-2 w-80"
-            placeholder="Frequency"
-          />
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              name="frequency"
+              value={formData}
+              onChange={handleChange}
+              className="border border-gray-400 py-1 px-2 w-80"
+              placeholder="Frequency"
+            />
+            <span>ms</span>
+          </div>
         </label>
         <input
           type="submit"

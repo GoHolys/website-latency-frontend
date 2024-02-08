@@ -1,21 +1,27 @@
 import React, { useState } from "react";
+import { BenchmarkSettings } from "../App";
 import Circle from "./Circle";
 
-export default function Form() {
-  const [formData, setFormData] = useState({
-    red: "",
-    orange: "",
-    green: "",
-  });
+interface BenchMarkFormProps {
+  handleBenchmark(newBenchmarkSettings: BenchmarkSettings): void;
+  benchmarkSettings: BenchmarkSettings;
+}
+
+export default function BenchmarkForm({
+  handleBenchmark,
+  benchmarkSettings,
+}: BenchMarkFormProps) {
+  const [formData, setFormData] = useState(benchmarkSettings);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
+    console.log(name, value);
+    setFormData((formData) => ({ ...formData, [name]: value }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
+    handleBenchmark(formData);
   };
 
   return (
@@ -26,22 +32,8 @@ export default function Form() {
           <div className="flex items-center gap-3">
             <input
               type="text"
-              name="red"
-              value={formData.red}
-              onChange={handleChange}
-              className="border border-gray-400 py-1 px-2 w-80"
-              placeholder="latency"
-            />
-            <span>ms</span>
-          </div>
-        </label>
-        <label className="grid gap-3">
-          <Circle bgColor={"bg-orange-500"} />
-          <div className="flex items-center gap-3">
-            <input
-              type="text"
-              name="orange"
-              value={formData.orange}
+              name="redLightLatency"
+              value={formData.redLightLatency}
               onChange={handleChange}
               className="border border-gray-400 py-1 px-2 w-80"
               placeholder="latency"
@@ -54,8 +46,8 @@ export default function Form() {
           <div className="flex items-center gap-3">
             <input
               type="text"
-              name="green"
-              value={formData.green}
+              name="greenLightLatency"
+              value={formData.greenLightLatency}
               onChange={handleChange}
               className="border border-gray-400 py-1 px-2 w-80"
               placeholder="latency"

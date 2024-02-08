@@ -1,13 +1,20 @@
 import { useState } from "react";
 import CardForm from "./CardForm";
 import Modal from "./Modal";
+import { Website } from "./CardsGrid";
 
-export default function AdditionCard() {
+interface AdditionCardProps {
+  handleWebsiteAddition(newWebsite: Website): Promise<void>;
+}
+
+export default function AdditionCard({
+  handleWebsiteAddition,
+}: AdditionCardProps) {
   const [open, setOpen] = useState(false);
   return (
     <>
       <Modal open={open} onClose={() => setOpen(false)}>
-        <CardForm />
+        <CardForm handleWebsiteAddition={handleWebsiteAddition} />
       </Modal>
       <div
         onClick={() => setOpen(true)}

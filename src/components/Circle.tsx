@@ -1,6 +1,5 @@
-
 interface CircleProps {
-  bgColor: string;
+  bgColor?: string;
 }
 
 export default function Circle({ bgColor }: CircleProps) {
