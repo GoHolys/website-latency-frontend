@@ -1,6 +1,5 @@
-import React from "react";
-import Modal from "./Modal";
 import { Website } from "./CardsGrid";
+import Modal from "./Modal";
 
 interface InfoModalProps {
   isInfoOpen: boolean;

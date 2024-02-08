@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import binIcon from "../assets/bin.png";
+import gearIcon from "../assets/gear.png";
+import infoIcon from "../assets/information.png";
+import CardForm from "./CardForm";
 import { Website } from "./CardsGrid";
 import Circle from "./Circle";
-import gearIcon from "../assets/gear.png";
-import binIcon from "../assets/bin.png";
-import infoIcon from "../assets/information.png";
 import DeleteModal from "./DeleteModal";
-import CardForm from "./CardForm";
-import Modal from "./Modal";
 import InfoModal from "./InfoModal";
+import Modal from "./Modal";
 
 interface CardProps {
   website: Website;
