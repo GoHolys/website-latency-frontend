@@ -1,6 +1,10 @@
-import React from "react";
+interface ModalProps {
+  open: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
 
-export default function Modal({ open, onClose, children }) {
+export default function Modal({ open, onClose, children }: ModalProps) {
   return (
     <div
       onClick={onClose}

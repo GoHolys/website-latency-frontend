@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Modal from "./Modal";
+import { useState } from "react";
 import CardForm from "./CardForm";
+import Modal from "./Modal";
 
 export default function AdditionCard() {
   const [open, setOpen] = useState(false);
