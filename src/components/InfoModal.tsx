@@ -12,16 +12,13 @@ export default function InfoModal({
   handleCloseInfo,
   website,
 }: InfoModalProps) {
+  const { name, url, latency } = website;
   return (
     <Modal open={isInfoOpen} onClose={handleCloseInfo}>
-      <ul className="grid gap-2 text-justify">
-        {Object.entries(website).map(([key, value]) => {
-          return (
-            <li>
-              {key} - {value}
-            </li>
-          );
-        })}
+      <ul>
+        <li>Name - {name}</li>
+        <li>Url - {url}</li>
+        <li>Latency - {latency}ms</li>
       </ul>
     </Modal>
   );

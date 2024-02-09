@@ -1,13 +1,18 @@
+import { Website } from "./CardsGrid";
 import Modal from "./Modal";
 
 interface DeleteModalProps {
   isDeleteOpen: boolean;
+  website: Website;
   handleCloseDelete: () => void;
+  handleWebsiteRemoval(targetWebsite: Website): void;
 }
 
 export default function DeleteModal({
   isDeleteOpen,
   handleCloseDelete,
+  website,
+  handleWebsiteRemoval,
 }: DeleteModalProps) {
   return (
     <Modal open={isDeleteOpen} onClose={handleCloseDelete}>
@@ -17,7 +22,10 @@ export default function DeleteModal({
           Are you sure you want to delete this item?
         </p>
         <div className="flex gap-4">
-          <button className="bg-red-600 w-full flex-1 rounded-sm py-0.5">
+          <button
+            onClick={() => handleWebsiteRemoval(website)}
+            className="bg-red-600 w-full flex-1 rounded-sm py-0.5"
+          >
             Delete
           </button>
           <button

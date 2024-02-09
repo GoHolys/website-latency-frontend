@@ -7,21 +7,30 @@ interface BenchMarkFormProps {
   benchmarkSettings: BenchmarkSettings;
 }
 
+interface FormData extends BenchmarkSettings {
+  errors?: Record<string, string>;
+}
+
 export default function BenchmarkForm({
   handleBenchmark,
   benchmarkSettings,
 }: BenchMarkFormProps) {
-  const [formData, setFormData] = useState(benchmarkSettings);
+  const [formData, setFormData] = useState<FormData>(benchmarkSettings);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(name, value);
     setFormData((formData) => ({ ...formData, [name]: value }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const errors: Record<string, string> = {};
     event.preventDefault();
-    handleBenchmark(formData);
+    if (formData.redLightLatency <= formData.greenLightLatency) {
+      errors.form = "The red value must be greater than the green value";
+      setFormData((prevState) => ({ ...prevState, errors }));
+    } else {
+      handleBenchmark(formData);
+    }
   };
 
   return (
@@ -61,6 +70,9 @@ export default function BenchmarkForm({
           className="w-full bg-blue-500 text-white rounded py-2 cursor-pointer"
         />
       </div>
+      {formData?.errors?.form && (
+        <p className="text-red-500">{formData.errors.form}</p>
+      )}
     </form>
   );
 }
