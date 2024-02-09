@@ -1,8 +1,8 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { BenchmarkSettings } from "../App";
 import AdditionCard from "./AdditionCard";
 import Card from "./Card";
-import { BenchmarkSettings } from "../App";
-import axios, { AxiosResponse } from "axios";
 
 export interface Website {
   id: string;
