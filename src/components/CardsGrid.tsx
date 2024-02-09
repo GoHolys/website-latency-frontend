@@ -5,9 +5,15 @@ import { BenchmarkSettings } from "../App";
 import axios, { AxiosResponse } from "axios";
 
 export interface Website {
+  id: string;
   name: string;
   url: string;
   latency?: number | "unknown";
+}
+
+export interface WebsiteToAdd {
+  name: string;
+  url: string;
 }
 export interface CardsGridProps {
   frequencyInterval: string;
@@ -19,75 +25,12 @@ export default function CardsGrid({
   benchmarkSettings,
 }: CardsGridProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [websites, setWebsites] = useState<Website[]>([
-    {
-      name: "Google",
-      url: "google.com",
-    },
-    {
-      name: "Facebook",
-      url: "facebook.com",
-    },
-    {
-      name: "Amazon",
-      url: "amazon.com",
-    },
-    {
-      name: "Ynet",
-      url: "ynet.com",
-    },
-    {
-      name: "Mako",
-      url: "mako.com",
-    },
-  ]);
-
-  async function handleWebsiteAddition(newWebsite: Website) {
-    try {
-      const { data: newWebsiteInfo } = await axios.post(
-        "http://localhost:8080/latency/website",
-        newWebsite
-      );
-      console.log(newWebsiteInfo);
-      setWebsites((websites) => [...websites, newWebsiteInfo]);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  function handleWebsiteRemoval(targetWebsite: Website) {
-    setWebsites((currentWebsites) =>
-      currentWebsites.filter((website) => website.url !== targetWebsite.url)
-    );
-  }
-
-  async function handleWebsiteUpdate(
-    targetWebsite: Website,
-    formData: Website
-  ) {
-    const updatedWebsites = await Promise.all(
-      websites.map(async (website) => {
-        if (website.url === targetWebsite.url) {
-          if (formData.url !== targetWebsite.url) {
-            const { data: newWebsiteInfo } = await fetchWebsite(formData);
-            return newWebsiteInfo;
-          }
-          return { latency: targetWebsite.latency, ...formData };
-        }
-        return website;
-      })
-    );
-    setWebsites(updatedWebsites);
-  }
-
-  function fetchWebsite(newWebsite: Website): Promise<AxiosResponse<Website>> {
-    return axios.post("http://localhost:8080/latency/website", newWebsite);
-  }
+  const [websites, setWebsites] = useState<Website[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
     axios
-      .post("http://localhost:8080/latency/websites", websites)
+      .get("http://localhost:8080/latency/websites")
       .then((res) => {
         setWebsites(res.data);
       })
@@ -101,7 +44,7 @@ export default function CardsGrid({
     const interval = setInterval(() => {
       setIsLoading(true);
       axios
-        .post("http://localhost:8080/latency/websites", websites, {
+        .get("http://localhost:8080/latency/websites", {
           signal: controller.signal,
         })
         .then((res) => {
@@ -121,6 +64,47 @@ export default function CardsGrid({
     };
   }, [frequencyInterval, websites]);
 
+  async function handleWebsiteAddition(newWebsite: Website) {
+    try {
+      const { data: websites } = await axios.post(
+        "http://localhost:8080/latency/websites",
+        newWebsite
+      );
+      setWebsites(websites);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleWebsiteUpdate(website: WebsiteToAdd, websiteId: string) {
+    try {
+      const { data: websites } = await axios.put(
+        "http://localhost:8080/latency/websites",
+        { id: websiteId, ...website }
+      );
+      console.log(website);
+      setWebsites(websites);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleWebsiteRemoval(websiteId: string) {
+    try {
+      const { data: websites } = await axios.delete(
+        `http://localhost:8080/latency/websites/${websiteId}`
+      );
+      console.log(websites);
+      setWebsites(websites);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function fetchWebsite(newWebsite: Website): Promise<AxiosResponse<Website>> {
+    return axios.post("http://localhost:8080/latency/website", newWebsite);
+  }
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -129,7 +113,7 @@ export default function CardsGrid({
     <div className="flex items-center justify-center ">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         {websites.map((website) => (
-          <div key={website.url}>
+          <div key={website.id}>
             <Card
               website={website}
               benchmarkSettings={benchmarkSettings}

@@ -5,7 +5,7 @@ interface DeleteModalProps {
   isDeleteOpen: boolean;
   website: Website;
   handleCloseDelete: () => void;
-  handleWebsiteRemoval(targetWebsite: Website): void;
+  handleWebsiteRemoval(websiteId: string): void;
 }
 
 export default function DeleteModal({
@@ -23,7 +23,7 @@ export default function DeleteModal({
         </p>
         <div className="flex gap-4">
           <button
-            onClick={() => handleWebsiteRemoval(website)}
+            onClick={() => handleWebsiteRemoval(website.id)}
             className="bg-red-600 w-full flex-1 rounded-sm py-0.5"
           >
             Delete

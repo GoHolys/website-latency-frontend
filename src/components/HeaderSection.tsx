@@ -21,6 +21,9 @@ export default function HeaderSection({
   const [isFrequencyOpen, setIsFrequencyOpen] = useState(false);
   const [isBenchmarkOpen, setIsBenchmarkOpen] = useState(false);
 
+  const handleCloseFrequency = () => setIsFrequencyOpen(false);
+  const handleCloseBenchmark = () => setIsBenchmarkOpen(false);
+
   return (
     <>
       {isFrequencyOpen && (
@@ -28,6 +31,7 @@ export default function HeaderSection({
           <FrequencyForm
             frequency={frequency}
             handleFrequency={handleFrequency}
+            handleCloseFrequency={handleCloseFrequency}
           />
         </Modal>
       )}
@@ -36,6 +40,7 @@ export default function HeaderSection({
           <BenchmarkForm
             handleBenchmark={handleBenchmark}
             benchmarkSettings={benchmarkSettings}
+            handleCloseBenchmark={handleCloseBenchmark}
           />
         </Modal>
       )}

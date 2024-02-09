@@ -13,8 +13,8 @@ import Modal from "./Modal";
 interface CardProps {
   website: Website;
   benchmarkSettings: BenchmarkSettings;
-  handleWebsiteRemoval(targetWebsite: Website): void;
-  handleWebsiteUpdate(targetWebsite: Website, formData: Website): Promise<void>;
+  handleWebsiteRemoval(websiteId: string): void;
+  handleWebsiteUpdate(formData: Website, websiteId: string): Promise<void>;
 }
 
 export default function Card({
@@ -63,8 +63,8 @@ export default function Card({
       />
       <Modal open={isUpdateOpen} onClose={handleCloseUpdate}>
         <CardUpdateForm
-          website={website}
           handleWebsiteUpdate={handleWebsiteUpdate}
+          website={website}
         />
       </Modal>
       <div className="rounded-xl shadow-lg h-44 w-52 p-5 flex flex-col">

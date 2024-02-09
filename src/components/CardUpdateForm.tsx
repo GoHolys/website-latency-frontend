@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Website } from "./CardsGrid";
+import { Website, WebsiteToAdd } from "./CardsGrid";
 
 interface CardUpdateFormProps {
+  handleWebsiteUpdate(formData: WebsiteToAdd, websiteId: string): Promise<void>;
   website: Website;
-  handleWebsiteUpdate(targetWebsite: Website, formData: Website): Promise<void>;
 }
 
 export default function CardUpdateForm({
-  website,
   handleWebsiteUpdate,
+  website,
 }: CardUpdateFormProps) {
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +22,7 @@ export default function CardUpdateForm({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleWebsiteUpdate(website, formData);
+    handleWebsiteUpdate(formData, website.id);
   };
 
   return (

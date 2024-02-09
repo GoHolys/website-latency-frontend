@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { Website } from "./CardsGrid";
+import { WebsiteToAdd } from "./CardsGrid";
 
 interface CardFormProps {
-  handleWebsiteAddition(newWebsite: Website): Promise<void>;
+  handleWebsiteAddition(newWebsite: WebsiteToAdd): Promise<void>;
+  handleCloseModal: () => void;
 }
 
-export default function CardForm({ handleWebsiteAddition }: CardFormProps) {
+export default function CardForm({
+  handleWebsiteAddition,
+  handleCloseModal,
+}: CardFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     url: "",
@@ -18,6 +22,8 @@ export default function CardForm({ handleWebsiteAddition }: CardFormProps) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log('hi')
+    handleCloseModal();
     handleWebsiteAddition(formData);
   };
 

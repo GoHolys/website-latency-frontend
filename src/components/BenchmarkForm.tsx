@@ -5,6 +5,7 @@ import Circle from "./Circle";
 interface BenchMarkFormProps {
   handleBenchmark(newBenchmarkSettings: BenchmarkSettings): void;
   benchmarkSettings: BenchmarkSettings;
+  handleCloseBenchmark: () => void;
 }
 
 interface FormData extends BenchmarkSettings {
@@ -14,6 +15,7 @@ interface FormData extends BenchmarkSettings {
 export default function BenchmarkForm({
   handleBenchmark,
   benchmarkSettings,
+  handleCloseBenchmark,
 }: BenchMarkFormProps) {
   const [formData, setFormData] = useState<FormData>(benchmarkSettings);
 
@@ -23,12 +25,13 @@ export default function BenchmarkForm({
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const errors: Record<string, string> = {};
     event.preventDefault();
+    const errors: Record<string, string> = {};
     if (formData.redLightLatency <= formData.greenLightLatency) {
       errors.form = "The red value must be greater than the green value";
       setFormData((prevState) => ({ ...prevState, errors }));
     } else {
+      handleCloseBenchmark();
       handleBenchmark(formData);
     }
   };

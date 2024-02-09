@@ -3,11 +3,13 @@ import React, { useState } from "react";
 interface FrequencyFormProps {
   frequency: string;
   handleFrequency(newFrequency: string): void;
+  handleCloseFrequency: () => void;
 }
 
 export default function FrequencyForm({
   frequency,
   handleFrequency,
+  handleCloseFrequency,
 }: FrequencyFormProps) {
   const [formData, setFormData] = useState(frequency);
 
@@ -17,6 +19,7 @@ export default function FrequencyForm({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    handleCloseFrequency();
     handleFrequency(formData);
   };
 
