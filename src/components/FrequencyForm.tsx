@@ -30,7 +30,7 @@ export default function FrequencyForm({
           Frequency
           <div className="flex items-center gap-2">
             <input
-              type="text"
+              type="number"
               name="frequency"
               value={formData}
               onChange={handleChange}

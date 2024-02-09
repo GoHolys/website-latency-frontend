@@ -49,7 +49,6 @@ export default function CardsGrid({
         })
         .then((res) => {
           setWebsites(res.data);
-          console.log("is this happening");
         })
         .catch(() => {
           return;
@@ -99,10 +98,6 @@ export default function CardsGrid({
     } catch (error) {
       console.log(error);
     }
-  }
-
-  function fetchWebsite(newWebsite: Website): Promise<AxiosResponse<Website>> {
-    return axios.post("http://localhost:8080/latency/website", newWebsite);
   }
 
   if (isLoading) {
