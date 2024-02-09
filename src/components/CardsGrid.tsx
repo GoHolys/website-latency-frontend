@@ -56,7 +56,7 @@ export default function CardsGrid({
         .finally(() => {
           setIsLoading(false);
         });
-    }, +frequencyInterval);
+    }, +frequencyInterval * 1000);
     return () => {
       controller.abort();
       clearInterval(interval);

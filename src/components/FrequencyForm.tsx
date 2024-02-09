@@ -37,7 +37,7 @@ export default function FrequencyForm({
               className="border border-gray-400 py-1 px-2 w-80"
               placeholder="Frequency"
             />
-            <span>ms</span>
+            <span>sec</span>
           </div>
         </label>
         <input

@@ -15,7 +15,7 @@ function App() {
     }
   );
 
-  const [frequency, setFrequency] = useState("2000");
+  const [frequency, setFrequency] = useState("15");
 
   function handleBenchmark(newBenchmarkSettings: BenchmarkSettings) {
     setBenchmarkSettings(newBenchmarkSettings);
