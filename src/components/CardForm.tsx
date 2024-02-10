@@ -22,7 +22,6 @@ export default function CardForm({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('hi')
     handleCloseModal();
     handleWebsiteAddition(formData);
   };

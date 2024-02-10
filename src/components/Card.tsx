@@ -10,6 +10,12 @@ import DeleteModal from "./DeleteModal";
 import InfoModal from "./InfoModal";
 import Modal from "./Modal";
 
+const CIRCLE_COLORS = {
+  red: "bg-red-500",
+  green: "bg-green-500",
+  orange: "bg-orange-500",
+};
+
 interface CardProps {
   website: Website;
   benchmarkSettings: BenchmarkSettings;
@@ -39,12 +45,12 @@ export default function Card({
       return;
     }
     if (latency >= redLightLatency) {
-      return "bg-red-500";
+      return CIRCLE_COLORS.red;
     }
     if (latency <= greenLightLatency) {
-      return "bg-green-500";
+      return CIRCLE_COLORS.green;
     } else {
-      return "bg-orange-500";
+      return CIRCLE_COLORS.orange;
     }
   }
 
@@ -63,6 +69,7 @@ export default function Card({
       />
       <Modal open={isUpdateOpen} onClose={handleCloseUpdate}>
         <CardUpdateForm
+          handleCloseUpdate={handleCloseUpdate}
           handleWebsiteUpdate={handleWebsiteUpdate}
           website={website}
         />

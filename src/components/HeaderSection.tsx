@@ -26,24 +26,20 @@ export default function HeaderSection({
 
   return (
     <>
-      {isFrequencyOpen && (
-        <Modal open={isFrequencyOpen} onClose={() => setIsFrequencyOpen(false)}>
-          <FrequencyForm
-            frequency={frequency}
-            handleFrequency={handleFrequency}
-            handleCloseFrequency={handleCloseFrequency}
-          />
-        </Modal>
-      )}
-      {isBenchmarkOpen && (
-        <Modal open={isBenchmarkOpen} onClose={() => setIsBenchmarkOpen(false)}>
-          <BenchmarkForm
-            handleBenchmark={handleBenchmark}
-            benchmarkSettings={benchmarkSettings}
-            handleCloseBenchmark={handleCloseBenchmark}
-          />
-        </Modal>
-      )}
+      <Modal open={isFrequencyOpen} onClose={() => setIsFrequencyOpen(false)}>
+        <FrequencyForm
+          frequency={frequency}
+          handleFrequency={handleFrequency}
+          handleCloseFrequency={handleCloseFrequency}
+        />
+      </Modal>
+      <Modal open={isBenchmarkOpen} onClose={() => setIsBenchmarkOpen(false)}>
+        <BenchmarkForm
+          handleBenchmark={handleBenchmark}
+          benchmarkSettings={benchmarkSettings}
+          handleCloseBenchmark={handleCloseBenchmark}
+        />
+      </Modal>
       <div className="flex md:gap-32 flex-col md:flex-row gap-16">
         <div className="flex-1" onClick={() => setIsFrequencyOpen(true)}>
           <HeaderCard name="Frequency of sampling" />

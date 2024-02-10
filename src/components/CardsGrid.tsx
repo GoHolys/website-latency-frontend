@@ -50,8 +50,8 @@ export default function CardsGrid({
         .then((res) => {
           setWebsites(res.data);
         })
-        .catch(() => {
-          return;
+        .catch((error) => {
+          console.log(error);
         })
         .finally(() => {
           setIsLoading(false);
@@ -81,7 +81,6 @@ export default function CardsGrid({
         "http://localhost:8080/latency/websites",
         { id: websiteId, ...website }
       );
-      console.log(website);
       setWebsites(websites);
     } catch (error) {
       console.log(error);
@@ -93,7 +92,6 @@ export default function CardsGrid({
       const { data: websites } = await axios.delete(
         `http://localhost:8080/latency/websites/${websiteId}`
       );
-      console.log(websites);
       setWebsites(websites);
     } catch (error) {
       console.log(error);

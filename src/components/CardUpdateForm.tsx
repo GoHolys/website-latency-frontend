@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Website, WebsiteToAdd } from "./CardsGrid";
 
 interface CardUpdateFormProps {
-  handleWebsiteUpdate(formData: WebsiteToAdd, websiteId: string): Promise<void>;
   website: Website;
+  handleCloseUpdate: () => void;
+  handleWebsiteUpdate(formData: WebsiteToAdd, websiteId: string): Promise<void>;
 }
 
 export default function CardUpdateForm({
   handleWebsiteUpdate,
+  handleCloseUpdate,
   website,
 }: CardUpdateFormProps) {
   const [formData, setFormData] = useState({
@@ -22,6 +24,7 @@ export default function CardUpdateForm({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    handleCloseUpdate();
     handleWebsiteUpdate(formData, website.id);
   };
 
